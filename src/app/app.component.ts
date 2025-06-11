@@ -1,33 +1,31 @@
-import { Component } from '@angular/core';
-import desseretData from '../../public/data.json';
-import { AddToCartComponent } from "./components/add-to-cart/add-to-cart.component";
+import { Component, inject, OnInit } from '@angular/core';
+// import dessertData from '../../public/data.json';
+import { AddToCartComponent } from './components/add-to-cart/add-to-cart.component';
+import { Dessert } from './models/dessert';
+import { DessertService } from './services/dessert.service';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-root',
+  imports: [AddToCartComponent, CurrencyPipe],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
-});
-
-// interface
-interface Dessert {
-  image: DessertImages;
-  name: string;
-  category: string;
-  price: number;
-};
-
-interface DessertImages {
-  thumbnail: string;
-  mobile: string;
-  tablet: string;
-  desktop: string;
-};
-
-export class AppComponent {
+  styleUrls: ['./app.component.scss'],
+})
+export class AppComponent implements OnInit {
   title = 'Product list';
-  desserts:Dessert[] | null = null;
+  desserts: Dessert[] | null = null;
+  private dessertService = inject(DessertService);
 
-  constructor() {
-    this.desserts = desseretData;
-  };
-};
+  constructor() {}
+
+  ngOnInit(): void {
+    this.dessertService.getDesserts().subscribe({
+      next: (data) => {
+        this.desserts = data;
+      },
+      error: (err) => {
+        console.error('Error fetching desserts:', err);
+      },
+    });
+  }
+}
