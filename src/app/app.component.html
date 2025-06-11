@@ -7,7 +7,18 @@
       <div class="dessert-item">
         <section class="item-image-add-to-cart">
           <img src="{{ dessert.image.thumbnail }}" alt="dessert image" />
-          <app-add-to-cart />
+          <app-add-to-cart
+            (addProduct)="
+              addToCart({ name: dessert.name, qty: 1, price: dessert.price })
+            "
+            (decreaseProduct)="
+              decreaseCartItem({
+                name: dessert.name,
+                qty: 1,
+                price: dessert.price
+              })
+            "
+          />
         </section>
         <section class="item-info">
           <p class="category">{{ dessert.category }}</p>
@@ -22,12 +33,14 @@
   </section>
 
   <section class="cart">
-    <h2>Your Cart (0)</h2>
-    <div class="content">
-      <div class="empty-cart-content">
-        <img src="images/illustration-empty-cart.svg" alt="empty cart svg" />
-        <p class="empty-cart-description">Your added items will appear here</p>
-      </div>
-    </div>
+    <h2>Your Cart {{ cartItems.length }}</h2>
+    @if(cartItems.length > 0) { @for(item of cartItems; track item.name){
+    <app-cart-item
+      [cartItem]="item"
+      (removeFromCart)="removeFromCart(item.name)"
+    />
+    } } @else {
+    <app-empty-cart />
+    }
   </section>
 </main>

@@ -1,0 +1,45 @@
+@use "variables" as *;
+
+.cart-item {
+  margin-top: 20px;
+  .item-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 10px;
+
+    border-radius: 5px;
+
+    .item-details {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      .item-name {
+        font-weight: bold;
+        font-size: 1.2em;
+        color: $rose-900;
+      }
+      .item-info {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+
+        .item-price {
+          color: #888;
+        }
+      }
+    }
+    svg {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+    }
+  }
+
+  hr {
+    margin: 10px 0;
+    border: none;
+    border-top: 1px solid #ccc;
+  }
+}
