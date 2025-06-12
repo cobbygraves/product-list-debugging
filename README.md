@@ -1,59 +1,62 @@
-# ProductListWithCart
+# Product List with Cart
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.1.
+This project is an Angular application that displays a list of products (desserts) and allows users to add them to a shopping cart.
 
-## Development server
+## Project Setup
 
-To start a local development server, run:
+1.  **Clone the repository:**
 
-```bash
-ng serve
-```
+    git clone <repository-url>
+    cd product-list-with-cart
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+2.  **Install dependencies:**
 
-## Code scaffolding
+    npm install
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+3.  **Start the development server:**
 
-```bash
-ng generate component component-name
-```
+    npm start
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Services Documentation
 
-```bash
-ng generate --help
-```
+This section describes the purpose and functions within the services used in this project.
 
-## Building
+### `DessertService` (`src/app/services/dessert.service.ts`)
 
-To build the project run:
+This service is responsible for fetching the list of desserts from a data source and providing it to the components.
 
-```bash
-ng build
-```
+- **`constructor()`**
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+  - The constructor injects the `HttpClient` service, which is used to make HTTP requests.
+  - Inside the constructor, it fetches the dessert data from `dataURL` using `http.get()`.
+  - The fetched data is then pushed to the `dessertsSubject` using `this.dessertsSubject.next(data);`, which notifies all subscribers of the new data.
 
-## Running unit tests
+- **`getDesserts()`**
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+  - Returns the `desserts$` Observable, allowing components to subscribe to dessert updates.
 
-```bash
-ng test
-```
+### `CartService` (`src/app/services/cart.service.ts`)
 
-## Running end-to-end tests
+This service manages the shopping cart functionality, including adding, removing, and retrieving cart items.
 
-For end-to-end (e2e) testing, run:
+- **`getCartItems()`**
 
-```bash
-ng e2e
-```
+  - Returns the `cartItems$` Observable, allowing components to subscribe to cart updates.
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+- **`addToCart()`**
 
-## Additional Resources
+  - Adds a `CartItem` to the cart.
+  - It first retrieves the current cart items from `this.cartItemsSubject.value`.
+  - It then checks if the item already exists in the cart. If it does, it updates the quantity. Otherwise, it adds the new item to the cart.
+  - Finally, it pushes the updated cart items to `this.cartItemsSubject` using `this.cartItemsSubject.next([...items]);`, notifying all subscribers of the change.
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- **`removeFromCart()`**
+
+  - Removes a `CartItem` from the cart based on the item's name.
+  - It filters the current cart items to exclude the item with the specified name.
+  - The updated cart items are then pushed to `this.cartItemsSubject`.
+
+- **`clearCart()`**
+
+  - Clears all items from the cart.
+  - It pushes an empty array to `this.cartItemsSubject`, effectively emptying the cart.
