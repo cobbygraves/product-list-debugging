@@ -65,6 +65,9 @@
   font-weight: bold;
   color: $rose-900;
   padding-top: 10px;
+  .amount {
+    font-weight: 800;
+  }
 }
 
 .new-order-button {
