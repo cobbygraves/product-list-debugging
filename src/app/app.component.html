@@ -69,7 +69,12 @@
         <p>This is a <b>carbon neutral</b> delivery</p>
       </div>
     </div>
-    <button class="confirm-order">Confirm Order</button>
+    <button class="confirm-order" (click)="handleConfirmModal()">
+      Confirm Order
+    </button>
     }
   </section>
 </main>
+@if(confirmOrder){
+<app-confirm-modal (startOrder)="handleNewOrder()" />
+}

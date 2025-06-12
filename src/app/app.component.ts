@@ -9,6 +9,7 @@ import { CartItem } from './models/dessert';
 import { CartService } from './services/cart.service';
 import { CartItemComponent } from './components/cart-item/cart-item.component';
 import { CommonModule } from '@angular/common';
+import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ import { CommonModule } from '@angular/common';
     EmptyCartComponent,
     CartItemComponent,
     CommonModule,
+    ConfirmModalComponent,
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
@@ -29,6 +31,7 @@ export class AppComponent implements OnInit {
   private cartService = inject(CartService);
   cartItems: CartItem[] = [];
   cartTotal: number = 0;
+  confirmOrder = false;
 
   constructor() {}
 
@@ -47,6 +50,16 @@ export class AppComponent implements OnInit {
         return previousItem + currentItem.price * currentItem.qty;
       }, 0);
     });
+  }
+
+  handleNewOrder() {
+    this.confirmOrder = false;
+    this.cartService.clearCart();
+    window.location.reload();
+  }
+
+  handleConfirmModal() {
+    this.confirmOrder = true;
   }
 
   addToCart(item: CartItem) {
