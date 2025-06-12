@@ -120,12 +120,16 @@ main {
 }
 // cart section
 .cart {
-  width: 320px;
+  width: 100%;
   height: fit-content;
   flex: 1 0 380px;
   padding: 1rem;
   background-color: $white;
   border-radius: 10px;
+
+  @media (min-width: 768px) {
+    width: 400px;
+  }
 
   h2 {
     @include TextPreset2;
