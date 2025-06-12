@@ -1,6 +1,6 @@
 import { Component, inject, output } from '@angular/core';
-import { CartService } from '../services/cart.service';
-import { CartItem } from '../models/dessert';
+import { CartService } from '../../services/cart.service';
+import { CartItem } from '../../models/dessert';
 import { CurrencyPipe } from '@angular/common';
 
 @Component({
