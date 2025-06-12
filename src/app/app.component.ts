@@ -8,6 +8,7 @@ import { EmptyCartComponent } from './components/empty-cart/empty-cart.component
 import { CartItem } from './models/dessert';
 import { CartService } from './services/cart.service';
 import { CartItemComponent } from './components/cart-item/cart-item.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +17,7 @@ import { CartItemComponent } from './components/cart-item/cart-item.component';
     CurrencyPipe,
     EmptyCartComponent,
     CartItemComponent,
+    CommonModule,
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
@@ -26,6 +28,7 @@ export class AppComponent implements OnInit {
   private dessertService = inject(DessertService);
   private cartService = inject(CartService);
   cartItems: CartItem[] = [];
+  cartTotal: number = 0;
 
   constructor() {}
 
@@ -40,11 +43,13 @@ export class AppComponent implements OnInit {
     });
     this.cartService.getCartItems().subscribe((items) => {
       this.cartItems = items;
+      this.cartTotal = items.reduce((previousItem, currentItem) => {
+        return previousItem + currentItem.price * currentItem.qty;
+      }, 0);
     });
   }
 
   addToCart(item: CartItem) {
-    // console.log(this.cartItems);
     this.cartService.addToCart(item);
   }
 

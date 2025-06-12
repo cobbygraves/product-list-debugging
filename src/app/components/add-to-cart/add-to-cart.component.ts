@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { output } from '@angular/core';
-import { Dessert } from '../../models/dessert';
 
 @Component({
   selector: 'app-add-to-cart',
@@ -20,7 +19,7 @@ export class AddToCartComponent {
   }
 
   decreaseProductItem() {
-    if (this.quantity < 1) {
+    if (this.quantity === 1) {
       this.isAddedToCart = false;
     }
     this.decreaseProduct.emit();

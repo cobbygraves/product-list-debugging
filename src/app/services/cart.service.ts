@@ -30,7 +30,6 @@ export class CartService {
     const items = this.cartItemsSubject.value;
     // Add logic to update quantity if item exists
     const existing = items.find((i) => i.name === item.name);
-    console.log(existing && existing.qty > 1);
     if (existing && existing.qty > 1) {
       existing.qty -= item.qty;
       this.cartItemsSubject.next([...items]);

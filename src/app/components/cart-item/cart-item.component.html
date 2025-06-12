@@ -3,9 +3,9 @@
     <div class="item-details">
       <h3 class="item-name">{{ cartItem()?.name }}</h3>
       <div class="item-info">
-        <span>{{ cartItem()?.qty }}x</span>
-        <span>&#64;{{ cartItem()?.price | currency }}</span>
-        <span>
+        <span class="item-qty">{{ cartItem()?.qty }}x</span>
+        <span class="item-price">&#64;{{ cartItem()?.price | currency }}</span>
+        <span class="item-amount">
           {{
             (cartItem()?.qty ?? 0) * (cartItem()?.price ?? 0) | currency : "USD"
           }}</span
