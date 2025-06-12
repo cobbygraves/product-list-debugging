@@ -6,10 +6,19 @@
       @for(dessert of desserts; track dessert) {
       <div class="dessert-item">
         <section class="item-image-add-to-cart">
-          <img src="{{ dessert.image.thumbnail }}" alt="dessert image" />
+          <img
+            src="{{ dessert.image.thumbnail }}"
+            alt="dessert image"
+            [class.is-in-cart]="isInCart(dessert)"
+          />
           <app-add-to-cart
             (addProduct)="
-              addToCart({ name: dessert.name, qty: 1, price: dessert.price })
+              addToCart({
+                name: dessert.name,
+                qty: 1,
+                price: dessert.price,
+                image: dessert.image.thumbnail
+              })
             "
             (decreaseProduct)="
               decreaseCartItem({
@@ -33,7 +42,7 @@
   </section>
 
   <section class="cart">
-    <h2>Your Cart ({{ cartItems.length }})</h2>
+    <h2>Your Cart ({{ numberItemsInCart }})</h2>
     @if(cartItems.length > 0) { @for(item of cartItems; track item.name){
     <app-cart-item
       [cartItem]="item"

@@ -9,7 +9,7 @@ import { CartItem } from './models/dessert';
 import { CartService } from './services/cart.service';
 import { CartItemComponent } from './components/cart-item/cart-item.component';
 import { CommonModule } from '@angular/common';
-import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
+import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-root',
@@ -32,8 +32,16 @@ export class AppComponent implements OnInit {
   cartItems: CartItem[] = [];
   cartTotal: number = 0;
   confirmOrder = false;
+  numberItemsInCart = 0;
 
   constructor() {}
+
+  isInCart(dessert: any): boolean {
+    return (
+      this.cartItems &&
+      this.cartItems.some((item: any) => item.name === dessert.name)
+    );
+  }
 
   ngOnInit(): void {
     this.dessertService.getDesserts().subscribe({
@@ -48,6 +56,9 @@ export class AppComponent implements OnInit {
       this.cartItems = items;
       this.cartTotal = items.reduce((previousItem, currentItem) => {
         return previousItem + currentItem.price * currentItem.qty;
+      }, 0);
+      this.numberItemsInCart = items.reduce((previousItem, currentItem) => {
+        return previousItem + currentItem.qty;
       }, 0);
     });
   }

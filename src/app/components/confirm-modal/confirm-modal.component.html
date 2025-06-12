@@ -23,24 +23,25 @@
     </div>
 
     <div class="order-details">
+      @for (item of cartItems; track item.name) {
       <div class="item">
-        <span>Classic Tiramisu</span>
-        <span>1x &#64; $5.50</span>
-        <span>$5.50</span>
+        <div class="item-content">
+          <img src="{{ item.image }}" alt="dessert-image" />
+          <div class="item-details">
+            <p class="item-name">{{ item.name }}</p>
+            <p class="item-qty">
+              <span class="qty">{{ item.qty }}x</span>
+              <span>&#64; {{ item.price | currency : "USD" }}</span>
+            </p>
+          </div>
+        </div>
+        <p class="price">{{ item.price * item.qty | currency : "USD" }}</p>
       </div>
-      <div class="item">
-        <span>Vanilla Bean Crème Brûlée</span>
-        <span>4x &#64; $7.00</span>
-        <span>$28.00</span>
-      </div>
-      <div class="item">
-        <span>Vanilla Panna Cotta</span>
-        <span>2x &#64; $6.50</span>
-        <span>$13.00</span>
-      </div>
+      }
+
       <div class="order-total">
         <p>Order Total</p>
-        <p class="amount">$46.50</p>
+        <p class="amount">{{ cartTotal | currency : "USD" }}</p>
       </div>
     </div>
 
