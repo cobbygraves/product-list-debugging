@@ -1,5 +1,5 @@
-@use 'mixins' as *;
-@use 'variables' as *;
+@use "mixins" as *;
+@use "variables" as *;
 
 :host {
   width: 100%;
@@ -13,11 +13,52 @@ main {
   // flex-wrap: wrap;
 }
 
+.added-to-cart {
+  border: 2px solid $red;
+}
+
+.order-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 45px;
+
+  .value {
+    font-size: 20px;
+    font-weight: bold;
+  }
+}
+.delivery-content {
+  display: flex;
+  justify-content: center;
+  background-color: $rose-50;
+  width: 100%;
+  border-radius: 5px;
+  margin-top: 20px;
+  padding: 10px;
+
+  .delivery-message {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+}
+
+.confirm-order {
+  width: 100%;
+  color: white;
+  font-size: 17px;
+  padding: 15px;
+  background-color: $red;
+  margin-top: 25px;
+  border-radius: 50px;
+}
+
 .desserts {
   @include flex(column, flex-start, stretch, 2rem);
   width: 100%;
   height: 100%;
-  
+
   h1 {
     @include TextPreset1;
     color: $rose-900;
@@ -72,7 +113,8 @@ main {
       .category {
         @include TextPreset4;
       }
-      .name, .price {
+      .name,
+      .price {
         @include TextPreset3;
       }
       .price {
@@ -87,6 +129,8 @@ main {
   height: fit-content;
   flex: 1 0 380px;
   padding: 1rem;
+  background-color: $white;
+  border-radius: 10px;
 
   h2 {
     @include TextPreset2;
@@ -100,7 +144,7 @@ main {
     .empty-cart-content {
       @include flex(column, center, center);
       width: 100%;
-      
+
       p {
         @include TextPreset4Bold;
         color: $rose-500;
