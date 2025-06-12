@@ -7,7 +7,7 @@
       <div class="dessert-item">
         <section class="item-image-add-to-cart">
           <img
-            src="{{ dessert.image.thumbnail }}"
+            [src]="getImageSrc(dessert)"
             alt="dessert image"
             [class.is-in-cart]="isInCart(dessert)"
           />

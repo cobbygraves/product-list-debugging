@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, HostListener } from '@angular/core';
 // import dessertData from '../../public/data.json';
 import { AddToCartComponent } from './components/add-to-cart/add-to-cart.component';
 import { Dessert } from './models/dessert';
@@ -33,6 +33,7 @@ export class AppComponent implements OnInit {
   cartTotal: number = 0;
   confirmOrder = false;
   numberItemsInCart = 0;
+  imageSize: 'mobile' | 'tablet' | 'desktop' = 'desktop';
 
   constructor() {}
 
@@ -44,6 +45,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.setImageSize();
     this.dessertService.getDesserts().subscribe({
       next: (data) => {
         this.desserts = data;
@@ -61,6 +63,32 @@ export class AppComponent implements OnInit {
         return previousItem + currentItem.qty;
       }, 0);
     });
+  }
+
+  @HostListener('window:resize')
+  onResize() {
+    this.setImageSize();
+  }
+
+  setImageSize() {
+    const width = window.innerWidth;
+    if (width <= 420) {
+      this.imageSize = 'mobile';
+    } else if (width < 1024) {
+      this.imageSize = 'tablet';
+    } else {
+      this.imageSize = 'desktop';
+    }
+  }
+
+  getImageSrc(dessert: Dessert) {
+    if (this.imageSize === 'mobile') {
+      return dessert.image.mobile;
+    } else if (this.imageSize === 'tablet') {
+      return dessert.image.tablet;
+    } else {
+      return dessert.image.desktop;
+    }
   }
 
   handleNewOrder() {
