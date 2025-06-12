@@ -50,9 +50,29 @@
 .item {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 17px 7px;
   border-bottom: 1px solid #eee;
   color: $rose-500;
+
+  .item-content {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+
+    img {
+      height: 50px;
+      width: 50px;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 5px;
+    }
+  }
+
+  .price {
+    color: $rose-900;
+    font-weight: bold;
+  }
 }
 
 .item:last-child {
@@ -62,11 +82,10 @@
 .order-total {
   display: flex;
   justify-content: space-between;
-  font-weight: bold;
   color: $rose-900;
   padding-top: 10px;
   .amount {
-    font-weight: 800;
+    font-weight: bolder;
   }
 }
 
@@ -81,4 +100,24 @@
   font-size: 1em;
   transition: background-color 0.3s ease;
   margin-top: 20px;
+}
+
+.item-details {
+  .item-name {
+    color: $rose-900;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  .item-qty {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    .qty {
+      font-weight: bold;
+      color: $red;
+    }
+  }
 }
