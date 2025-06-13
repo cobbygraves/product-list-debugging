@@ -22,7 +22,7 @@ import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.
     ConfirmModalComponent,
   ],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
   title = 'Product list';
@@ -37,7 +37,7 @@ export class AppComponent implements OnInit {
 
   constructor() {}
 
-  isInCart(dessert: any): boolean {
+  isInCart(dessert: Dessert): boolean {
     return (
       this.cartItems &&
       this.cartItems.some((item: any) => item.name === dessert.name)

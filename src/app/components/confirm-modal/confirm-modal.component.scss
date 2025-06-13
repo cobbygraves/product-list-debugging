@@ -47,6 +47,8 @@
 .order-details {
   margin-bottom: 20px;
   background-color: $rose-50;
+  overflow-y: scroll;
+  height: 50vh;
 }
 
 .item {
